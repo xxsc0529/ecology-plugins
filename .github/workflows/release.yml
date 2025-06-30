@@ -20,12 +20,12 @@ jobs:
       - name: Build Flyway Plugin
         run: |
           cd flyway-oceanbase-plugin
-          mvn clean package -DskipTests
+          ./mvnw clean package -DskipTests
       - name: Archive Flyway JAR
         uses: actions/upload-artifact@v4
         with:
           name: flyway-database-oceanbase
-          path: flyway-oceanbase-plugin/flyway-database-oceanbase/target/*.jar
+          path: flyway-oceanbase-plugin/flyway-database-oceanbase/target/flyway-database-oceanbase-10.16.1.jar
 
       - name: Set up JDK for Trino
         uses: actions/setup-java@v3
@@ -73,8 +73,8 @@ jobs:
         uses: actions/upload-release-asset@latest
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: flyway-oceanbase-plugin/flyway-database-oceanbase/target/*.jar
-          asset_name: flyway-database-oceanbase.jar
+          asset_path: flyway-oceanbase-plugin/flyway-database-oceanbase/target/flyway-database-oceanbase-10.16.1.jar
+          asset_name: flyway-database-oceanbase-10.16.1.jar
           asset_content_type: application/java-archive
 
       - name: Upload Trino Release Asset
