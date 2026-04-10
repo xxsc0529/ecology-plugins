@@ -121,18 +121,34 @@ jobs:
         if: needs.build.outputs.publish_to_test_pypi == 'true'
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          TOKEN_PROJECT: ${{ secrets.OCEANBASE_CLI_TEST_PYPI_API_TOKEN }}
+          TOKEN_SHARED: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           pip install twine
+          if [ -n "$TOKEN_PROJECT" ]; then export TWINE_PASSWORD="$TOKEN_PROJECT"
+          else export TWINE_PASSWORD="$TOKEN_SHARED"; fi
+          if [ -z "$TWINE_PASSWORD" ]; then
+            echo "::error::Missing Test PyPI token. Add OCEANBASE_CLI_TEST_PYPI_API_TOKEN or TEST_PYPI_API_TOKEN."
+            exit 1
+          fi
           twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
       - name: Publish to PyPI
         if: needs.build.outputs.publish_to_test_pypi != 'true'
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          TOKEN_PROJECT: ${{ secrets.OCEANBASE_CLI_PYPI_API_TOKEN }}
+          TOKEN_SHARED: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           pip install twine
+          if [ -n "$TOKEN_PROJECT" ]; then export TWINE_PASSWORD="$TOKEN_PROJECT"
+          else export TWINE_PASSWORD="$TOKEN_SHARED"; fi
+          if [ -z "$TWINE_PASSWORD" ]; then
+            echo "::error::Missing PyPI token. Add OCEANBASE_CLI_PYPI_API_TOKEN or PYPI_API_TOKEN."
+            exit 1
+          fi
+          echo "Token source: OCEANBASE_CLI_PYPI_API_TOKEN if set, otherwise PYPI_API_TOKEN."
+          echo "If upload returns 403: PyPI tokens scoped to a single project (e.g. pyobsql) cannot upload oceanbase-cli. Use an entire-account token or a token scoped to oceanbase-cli."
           twine upload dist/*
 
       - name: Display published package info
