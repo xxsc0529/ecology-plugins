@@ -8,7 +8,8 @@ dynamic = ["version"]
 description = "Haystack 2.x integration for OceanBase vector search (via pyobvector)."
 readme = "README.md"
 requires-python = ">=3.9"
-license = "Apache-2.0"
+# Use `text` form so wheel/sdist metadata stays compatible with PyPI + twine (avoids strict `license-expression` validation issues from SPDX shorthand).
+license = { text = "Apache-2.0" }
 keywords = ["haystack", "oceanbase", "vector", "rag"]
 authors = [{ name = "OceanBase Haystack contributors" }]
 dependencies = [
