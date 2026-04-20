@@ -21,6 +21,7 @@ OceanBase is a high-performance database compatible with both MySQL and Oracle p
 | [Fluent Plugin OceanBase Logs](./fluent-plugin-oceanbase-logs/README.md)                   | Log collection (Fluentd)  | Fluentd input plugin that pulls slow SQL and top SQL diagnostics from OceanBase Cloud |
 | [PyObsql OceanBase Plugin](./pyobsql-oceanbase-plugin/README.md)                             | Python SDK                | A Python SDK for OceanBase SQL with JSON Table support and SQLAlchemy dialect extensions |
 | [OceanBase CLI](./oceanbase-cli/README.md)                                                   | CLI & Agent Skill         | `obcli` for MySQL protocol (encrypted local DSN, optional `policy.json`); includes [Agent Skill](./skills/oceanbase-cli/SKILL.md) for Cursor / Claude Code |
+| [OceanBase Haystack](./oceanbase-haystack/README.md)                                         | Haystack / RAG            | Haystack 2.x document store and embedding retriever for OceanBase vector search via [pyobvector](https://github.com/oceanbase/pyobvector) |
 
 ---
 
@@ -116,6 +117,14 @@ OceanBase is a high-performance database compatible with both MySQL and Oracle p
 
 ---
 
+### ✅ OceanBase Haystack
+
+- **Function**: [Haystack](https://haystack.deepset.ai/) 2.x integration for OceanBase **vector** search: `OceanBaseDocumentStore` and `OceanBaseEmbeddingRetriever` using [pyobvector](https://github.com/oceanbase/pyobvector), similar in spirit to milvus-haystack.
+- **Use Case**: RAG pipelines and semantic retrieval against OceanBase tenants with vector indexes.
+- **Documentation**: [OceanBase Haystack](./oceanbase-haystack/README.md)
+
+---
+
 ## 📚 Full Documentation Links
 
 | Plugin Name                           | Documentation Link                                                                      |
@@ -131,6 +140,7 @@ OceanBase is a high-performance database compatible with both MySQL and Oracle p
 | Fluent Plugin OceanBase Logs          | [Fluent Plugin OceanBase Logs](./fluent-plugin-oceanbase-logs/README.md)                   |
 | PyObsql OceanBase Plugin              | [PyObsql OceanBase Plugin](./pyobsql-oceanbase-plugin/README.md)                             |
 | OceanBase CLI                         | [OceanBase CLI](./oceanbase-cli/README.md) · [Agent Skill](./skills/oceanbase-cli/SKILL.md)   |
+| OceanBase Haystack                    | [OceanBase Haystack](./oceanbase-haystack/README.md)                                       |
 
 ---
 
