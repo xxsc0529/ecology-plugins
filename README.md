@@ -1,6 +1,6 @@
 # OceanBase Ecosystem Plugins Collection
 
-This repository includes multiple plugins designed to resolve compatibility issues between **OceanBase** and various frameworks/tools (such as Flyway, Trino, WordPress, and Fluentd). Each plugin is optimized for specific scenarios to ensure stable and efficient database operations.
+This repository includes multiple plugins designed to resolve compatibility issues between **OceanBase** and various frameworks/tools (such as Flyway, Trino, WordPress, Fluentd, [Haystack](https://haystack.deepset.ai/) for RAG, and more). Each plugin is optimized for specific scenarios to ensure stable and efficient database operations.
 
 ---
 
@@ -119,9 +119,12 @@ OceanBase is a high-performance database compatible with both MySQL and Oracle p
 
 ### ✅ OceanBase Haystack
 
-- **Function**: [Haystack](https://haystack.deepset.ai/) 2.x integration for OceanBase **vector** search: `OceanBaseDocumentStore` and `OceanBaseEmbeddingRetriever` using [pyobvector](https://github.com/oceanbase/pyobvector), similar in spirit to milvus-haystack.
-- **Use Case**: RAG pipelines and semantic retrieval against OceanBase tenants with vector indexes.
+- **Function**: [Haystack](https://haystack.deepset.ai/) 2.x integration for OceanBase **vector** search: `OceanBaseDocumentStore`, dense/sparse/hybrid retrievers, and JSON `meta` filters, backed by [pyobvector](https://github.com/oceanbase/pyobvector) (`ObVecClient`). The API is modeled after [milvus-haystack](https://github.com/milvus-io/milvus-haystack) where practical.
+- **Use Case**: Building RAG pipelines, semantic search, and hybrid dense+sparse retrieval on OceanBase tenants that expose `VECTOR` indexes and compatible SQL.
 - **Documentation**: [OceanBase Haystack](./oceanbase-haystack/README.md)
+- **Location in this repo**: [`./oceanbase-haystack/`](./oceanbase-haystack/)
+- **CI**: The [main workflow](./.github/workflows/workflow.yml) runs Ruff, mocked unit tests (`pytest -m "not oceanbase"`), and a package build on pushes and PRs to `main`. An [extended workflow](./.github/workflows/oceanbase-haystack-ci.yml) runs a multi-version Python matrix and optional **OceanBase CE** live integration tests when files under `oceanbase-haystack/` change.
+- **Requirements**: Python 3.9+, Haystack 2.x, and an OceanBase deployment with vector features enabled (see the component README for connection and index options).
 
 ---
 
@@ -160,5 +163,6 @@ This project is licensed under the [Apache License 2.0](./LICENSE).
 ## 📌 Notes
 
 - For detailed configuration and usage instructions, refer to the respective plugin documentation.
-- Ensure OceanBase version compatibility (recommended ≥ 3.1.0).
-- Plugins support MySQL/Oracle modes; select the appropriate version based on your environment.
+- Ensure OceanBase version compatibility (recommended ≥ 3.1.0 for general plugins).
+- Plugins support MySQL/Oracle modes where applicable; select the appropriate version based on your environment.
+- **Vector / Haystack**: [OceanBase Haystack](./oceanbase-haystack/README.md) depends on OceanBase **vector** capabilities and [pyobvector](https://github.com/oceanbase/pyobvector); verify your cluster version and vector-related parameters against that component’s documentation.

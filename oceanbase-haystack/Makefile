@@ -1,4 +1,4 @@
-# Local workflows aligned with CI (see .github/workflows/ci.yml; pyobvector uses Makefile + make check/test/build).
+# Local workflows aligned with ecology-plugins CI (see repo .github/workflows/workflow.yml and oceanbase-haystack-ci.yml).
 
 .PHONY: help install check test test-ci build
 

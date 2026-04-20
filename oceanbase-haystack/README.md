@@ -21,6 +21,15 @@ cd oceanbase-haystack
 pip install -e .
 ```
 
+## In the ecology-plugins monorepo
+
+This project lives under **[ecology-plugins](https://github.com/oceanbase/ecology-plugins)** as the directory `oceanbase-haystack/`. The [top-level README](https://github.com/oceanbase/ecology-plugins/blob/main/README.md) lists all bundled plugins and links back here.
+
+| Topic | Where |
+|--------|--------|
+| CI (lint, mocked tests, build) | [`.github/workflows/workflow.yml`](https://github.com/oceanbase/ecology-plugins/blob/main/.github/workflows/workflow.yml) — job **Test and Build OceanBase Haystack** |
+| Extended CI (Python matrix, optional OceanBase CE smoke) | [`.github/workflows/oceanbase-haystack-ci.yml`](https://github.com/oceanbase/ecology-plugins/blob/main/.github/workflows/oceanbase-haystack-ci.yml) — runs when `oceanbase-haystack/**` changes |
+
 ## Quick start
 
 ```python
@@ -94,11 +103,41 @@ Use Haystack `Secret` for passwords in production and serialize with `to_dict` /
 
 ## Development
 
+From the `oceanbase-haystack` directory:
+
 ```bash
-pip install -e .
-pip install pytest
-pytest tests/
+pip install -e ".[dev]"
 ```
+
+Lint and format (matches CI):
+
+```bash
+python -m ruff check src tests
+python -m ruff format --check src tests
+```
+
+Tests:
+
+- **Default / CI (no live OceanBase)**: runs unit and mocked tests only:
+
+  ```bash
+  python -m pytest tests -v -m "not oceanbase"
+  ```
+
+- **Full suite** (includes tests marked `oceanbase`; requires a reachable OceanBase instance and env vars as in `tests/test_oceanbase_integration.py`):
+
+  ```bash
+  export OCEANBASE_CI=1   # and set OB_HOST, OB_PORT, OB_USER, OB_PASSWORD, OB_DB, etc.
+  python -m pytest tests -v
+  ```
+
+Build source and wheel:
+
+```bash
+python -m build
+```
+
+You can also use **`make`** from this directory: `make install`, `make check`, `make test-ci`, `make build` (see `Makefile`).
 
 ## License
 
