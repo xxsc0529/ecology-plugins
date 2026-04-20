@@ -147,6 +147,18 @@ OceanBase is a high-performance database compatible with both MySQL and Oracle p
 
 ---
 
+## 📦 PyPI release workflows
+
+Manual and tag-driven publishes use **`PYPI_API_TOKEN`** / **`TEST_PYPI_API_TOKEN`** repository secrets (same pattern as [Publish PyObsql to PyPI](./.github/workflows/publish-pyobsql-pypi.yml)). Use an **entire-account** or **project-scoped** token that is allowed to upload the target package.
+
+| Workflow | Trigger | Package |
+|----------|---------|---------|
+| [publish-pyobsql-pypi.yml](./.github/workflows/publish-pyobsql-pypi.yml) | `workflow_dispatch` | `pyobsql` |
+| [publish-oceanbase-cli-pypi.yml](./.github/workflows/publish-oceanbase-cli-pypi.yml) | `workflow_dispatch` or tag `release_oceanbase_cli_*` | `oceanbase-cli` |
+| [publish-oceanbase-haystack-pypi.yml](./.github/workflows/publish-oceanbase-haystack-pypi.yml) | `workflow_dispatch` or tag `release_oceanbase_haystack_*` | `oceanbase-haystack` |
+
+---
+
 ## 🛠️ Contributing & Feedback
 
 We welcome contributions via **Issues** or **Pull Requests**.

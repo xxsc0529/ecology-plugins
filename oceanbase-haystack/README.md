@@ -139,6 +139,15 @@ python -m build
 
 You can also use **`make`** from this directory: `make install`, `make check`, `make test-ci`, `make build` (see `Makefile`).
 
+## Publishing to PyPI (maintainers)
+
+Workflow **[`publish-oceanbase-haystack-pypi.yml`](https://github.com/oceanbase/ecology-plugins/blob/main/.github/workflows/publish-oceanbase-haystack-pypi.yml)** follows the same pattern as **[`publish-pyobsql-pypi.yml`](https://github.com/oceanbase/ecology-plugins/blob/main/.github/workflows/publish-pyobsql-pypi.yml)** (`twine` + **`PYPI_API_TOKEN`** / **`TEST_PYPI_API_TOKEN`**).
+
+- **Manual run**: Actions → *Publish OceanBase Haystack to PyPI* → optional version (updates [`__about__.py`](./src/oceanbase_haystack/__about__.py)), Test PyPI toggle.
+- **Tag push**: push `release_oceanbase_haystack_*` after setting the desired `__version__` in `__about__.py`.
+
+See the [monorepo README](https://github.com/oceanbase/ecology-plugins/blob/main/README.md#-pypi-release-workflows) for secret setup.
+
 ## License
 
 Apache-2.0 (see `pyproject.toml`).
